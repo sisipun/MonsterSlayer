@@ -21,12 +21,15 @@ public:
 public:
 	ASlayer();
 
-protected:
-	virtual void BeginPlay() override;
-
-public:	
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+protected:
+	virtual void BeginPlay() override;
+
+private:
+	void MoveForward(float Scale);
+
+	void MoveRight(float Scale);
 };

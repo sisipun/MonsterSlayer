@@ -1,4 +1,5 @@
 #include "Slayer.h"
+#include "Components/InputComponent.h"
 
 ASlayer::ASlayer()
 {
@@ -6,6 +7,7 @@ ASlayer::ASlayer()
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->SetupAttachment(RootComponent);
+	SpringArm->bUsePawnControlRotation = true;
 
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
@@ -27,5 +29,19 @@ void ASlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &ASlayer::AddControllerPitchInput);
+	PlayerInputComponent->BindAxis(TEXT("LookRight"), this, &ASlayer::AddControllerYawInput);
+
+	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &ASlayer::MoveForward);
+	PlayerInputComponent->BindAxis(TEXT("MoveRight"), this, &ASlayer::MoveRight);
 }
 
+void ASlayer::MoveForward(float Scale)
+{
+	AddMovementInput(GetActorForwardVector(), Scale);
+}
+
+void ASlayer::MoveRight(float Scale)
+{
+	AddMovementInput(GetActorRightVector(), Scale);
+}
