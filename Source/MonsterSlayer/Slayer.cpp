@@ -1,9 +1,17 @@
 #include "Slayer.h"
 #include "Components/InputComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/Controller.h"
 
 ASlayer::ASlayer()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
+
+	GetCharacterMovement()->bOrientRotationToMovement = true;
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->SetupAttachment(RootComponent);
@@ -38,10 +46,16 @@ void ASlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ASlayer::MoveForward(float Scale)
 {
-	AddMovementInput(GetActorForwardVector(), Scale);
+	FRotator Rotation = Controller->GetControlRotation();
+	FRotator YawRotation = FRotator(0.0f, Rotation.Yaw, 0.0f);
+
+	AddMovementInput(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X), Scale);
 }
 
 void ASlayer::MoveRight(float Scale)
 {
-	AddMovementInput(GetActorRightVector(), Scale);
+	FRotator Rotation = Controller->GetControlRotation();
+	FRotator YawRotation = FRotator(0.0f, Rotation.Yaw, 0.0f);
+
+	AddMovementInput(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y), Scale);
 }
