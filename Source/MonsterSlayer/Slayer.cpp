@@ -24,13 +24,11 @@ ASlayer::ASlayer()
 void ASlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void ASlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void ASlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

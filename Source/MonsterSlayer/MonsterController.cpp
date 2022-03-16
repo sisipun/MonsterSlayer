@@ -14,7 +14,7 @@ void AMonsterController::BeginPlay()
 	if (Monster)
 	{
 		APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
-		if (PlayerPawn) 
+		if (PlayerPawn)
 		{
 			MoveToActor(PlayerPawn);
 		}

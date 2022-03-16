@@ -8,5 +8,5 @@ UCLASS()
 class MONSTERSLAYER_API AMonsterSlayerGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
 };
