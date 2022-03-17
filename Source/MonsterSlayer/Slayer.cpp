@@ -5,7 +5,7 @@
 
 ASlayer::ASlayer()
 {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
@@ -19,16 +19,6 @@ ASlayer::ASlayer()
 
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
-}
-
-void ASlayer::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
-void ASlayer::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
 }
 
 void ASlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

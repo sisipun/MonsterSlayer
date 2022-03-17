@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/SceneComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/Actor.h"
@@ -13,6 +14,9 @@ class MONSTERSLAYER_API AWeapon : public AActor
 
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body")
+		USceneComponent* Body;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body")
 		UCapsuleComponent* Collider;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body")
@@ -20,11 +24,5 @@ public:
 
 public:	
 	AWeapon();
-
-protected:
-	virtual void BeginPlay() override;
-
-public:	
-	virtual void Tick(float DeltaTime) override;
 
 };

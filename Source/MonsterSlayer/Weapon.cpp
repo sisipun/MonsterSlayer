@@ -1,23 +1,19 @@
 #include "Weapon.h"
+#include "Engine/EngineTypes.h"
 
 AWeapon::AWeapon()
 {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
+
+	Body = CreateDefaultSubobject<USceneComponent>(TEXT("Body"));
+	Body->SetupAttachment(RootComponent);
 
 	Collider = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Collider"));
-	Collider->SetupAttachment(RootComponent);
+	Collider->SetupAttachment(Body);
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	Mesh->SetupAttachment(Collider);
-}
+	Mesh->SetupAttachment(Body);
 
-void AWeapon::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
-void AWeapon::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+	Mesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 }
 

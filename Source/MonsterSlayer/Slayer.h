@@ -1,9 +1,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
+
+#include "Weapon.h"
+
 #include "Slayer.generated.h"
 
 UCLASS()
@@ -21,12 +25,7 @@ public:
 public:
 	ASlayer();
 
-	virtual void Tick(float DeltaTime) override;
-
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-protected:
-	virtual void BeginPlay() override;
 
 private:
 	void MoveForward(float Scale);
