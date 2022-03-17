@@ -1,4 +1,5 @@
 #include "Weapon.h"
+
 #include "Engine/EngineTypes.h"
 
 AWeapon::AWeapon()

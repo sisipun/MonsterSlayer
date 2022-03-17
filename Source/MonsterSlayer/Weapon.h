@@ -1,10 +1,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "Components/SceneComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/Actor.h"
+
 #include "Weapon.generated.h"
 
 UCLASS()

@@ -1,7 +1,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "GameFramework/GameModeBase.h"
+
 #include "MonsterSlayerGameModeBase.generated.h"
 
 UCLASS()

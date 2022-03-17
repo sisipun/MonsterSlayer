@@ -1,4 +1,5 @@
 #include "Monster.h"
+
 #include "MonsterController.h"
 
 AMonster::AMonster()
