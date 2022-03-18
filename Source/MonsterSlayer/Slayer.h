@@ -30,12 +30,23 @@ public:
 		TArray<TSubclassOf<AWeapon>> Weapons;
 
 public:
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+		void ChangeWeapon(int index);
+
+
+public:
 	ASlayer();
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+protected:
+	void BeginPlay() override;
 
 private:
 	void MoveForward(float Scale);
 
 	void MoveRight(float Scale);
+
+private:
+	static FName WEAPON_SOCKET_NAME;
 };
