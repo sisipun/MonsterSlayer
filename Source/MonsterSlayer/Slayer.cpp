@@ -17,9 +17,12 @@ ASlayer::ASlayer()
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 
+	AttackCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("AttackCollider"));
+	AttackCollider->SetupAttachment(RootComponent);
+
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
-	SpringArm->SetupAttachment(RootComponent);
 	SpringArm->bUsePawnControlRotation = true;
+	SpringArm->SetupAttachment(RootComponent);
 
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
@@ -61,7 +64,7 @@ void ASlayer::MoveRight(float Scale)
 	AddMovementInput(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y), Scale);
 }
 
-void ASlayer::ChangeWeapon(int index) 
+void ASlayer::ChangeWeapon(int index)
 {
 	if (CurrentWeapon)
 	{
@@ -72,13 +75,66 @@ void ASlayer::ChangeWeapon(int index)
 	AActor* Weapon = GetWorld()->SpawnActor(Weapons[index], &SocketTransform);
 	CurrentWeapon = Cast<AWeapon>(Weapon);
 	CurrentWeapon->AttachToComponent(
-		GetMesh(), 
+		GetMesh(),
 		FAttachmentTransformRules(
-			EAttachmentRule::SnapToTarget, 
-			EAttachmentRule::SnapToTarget, 
-			EAttachmentRule::KeepWorld, 
+			EAttachmentRule::SnapToTarget,
+			EAttachmentRule::SnapToTarget,
+			EAttachmentRule::KeepWorld,
 			true
-		), 
+		),
 		ASlayer::WEAPON_SOCKET_NAME
 	);
+}
+
+void ASlayer::SetAttackTarget(AMonster* Target)
+{
+	if (Target && !Target->isDead())
+	{
+		AttackTarget = Target;
+	}
+}
+
+void ASlayer::ClearAttackTarget()
+{
+	AttackTarget = NULL;
+}
+
+void ASlayer::Attack()
+{
+	if (!bIsAttack && CurrentWeapon) {
+		bIsAttack = true;
+
+		if (AttackTarget) {
+			AttackTarget->Hit(CurrentWeapon->Power);
+
+			if (AttackTarget->isDead())
+			{
+				ClearAttackTarget();
+			}
+		}
+	}
+}
+
+void ASlayer::FinishAttack()
+{
+	bIsAttack = false;
+}
+
+bool ASlayer::isAttack()
+{
+	return bIsAttack;
+}
+
+void ASlayer::Hit(float Power)
+{
+	Health -= Power;
+	if (Health < 0)
+	{
+		Health = 0;
+	}
+}
+
+bool ASlayer::isDead()
+{
+	return Health <= 0;
 }

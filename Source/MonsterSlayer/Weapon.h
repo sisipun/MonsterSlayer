@@ -24,6 +24,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body")
 		UStaticMeshComponent* Mesh;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
+		float Power;
+
 public:	
 	AWeapon();
 
