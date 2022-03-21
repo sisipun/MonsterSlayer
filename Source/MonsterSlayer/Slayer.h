@@ -25,12 +25,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 		UCameraComponent* FollowCamera;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attack")
-		UBoxComponent* AttackCollider;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attack")
-		AMonster* AttackTarget;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
 		AWeapon* CurrentWeapon;
 
@@ -43,21 +37,6 @@ public:
 public:
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 		void ChangeWeapon(int index);
-
-	UFUNCTION(BlueprintCallable, Category = "Attack")
-		void SetAttackTarget(AMonster* Monster);
-
-	UFUNCTION(BlueprintCallable, Category = "Attack")
-		void ClearAttackTarget();
-
-	UFUNCTION(BlueprintCallable, Category = "Attack")
-		void Attack();
-
-	UFUNCTION(BlueprintCallable, Category = "Attack")
-		void FinishAttack();
-
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Attack")
-		bool isAttack();
 
 	UFUNCTION(BlueprintCallable, Category = "Hit")
 		void Hit(float Power);
@@ -80,7 +59,5 @@ private:
 	void MoveRight(float Scale);
 
 private:
-	bool bIsAttack;
-
 	static FName WEAPON_SOCKET_NAME;
 };

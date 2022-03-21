@@ -17,9 +17,6 @@ ASlayer::ASlayer()
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 
-	AttackCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("AttackCollider"));
-	AttackCollider->SetupAttachment(RootComponent);
-
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->bUsePawnControlRotation = true;
 	SpringArm->SetupAttachment(RootComponent);
@@ -84,45 +81,6 @@ void ASlayer::ChangeWeapon(int index)
 		),
 		ASlayer::WEAPON_SOCKET_NAME
 	);
-}
-
-void ASlayer::SetAttackTarget(AMonster* Target)
-{
-	if (Target && !Target->isDead())
-	{
-		AttackTarget = Target;
-	}
-}
-
-void ASlayer::ClearAttackTarget()
-{
-	AttackTarget = NULL;
-}
-
-void ASlayer::Attack()
-{
-	if (!bIsAttack && CurrentWeapon) {
-		bIsAttack = true;
-
-		if (AttackTarget) {
-			AttackTarget->Hit(CurrentWeapon->Power);
-
-			if (AttackTarget->isDead())
-			{
-				ClearAttackTarget();
-			}
-		}
-	}
-}
-
-void ASlayer::FinishAttack()
-{
-	bIsAttack = false;
-}
-
-bool ASlayer::isAttack()
-{
-	return bIsAttack;
 }
 
 void ASlayer::Hit(float Power)
