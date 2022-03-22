@@ -8,13 +8,14 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
 
+#include "BaseCharacter.h"
 #include "Weapon.h"
 #include "Monster.h"
 
 #include "Slayer.generated.h"
 
 UCLASS()
-class MONSTERSLAYER_API ASlayer : public ACharacter
+class MONSTERSLAYER_API ASlayer : public ABaseCharacter
 {
 	GENERATED_BODY()
 
@@ -31,18 +32,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
 		TArray<TSubclassOf<AWeapon>> Weapons;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "State")
-		float Health;
-
 public:
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 		void ChangeWeapon(int index);
-
-	UFUNCTION(BlueprintCallable, Category = "Hit")
-		void Hit(float Power);
-
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
-		bool isDead();
 
 
 public:

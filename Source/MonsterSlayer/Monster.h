@@ -4,25 +4,17 @@
 
 #include "GameFramework/Character.h"
 
+#include "BaseCharacter.h"
+
 #include "Monster.generated.h"
 
 UCLASS()
-class MONSTERSLAYER_API AMonster : public ACharacter
+class MONSTERSLAYER_API AMonster : public ABaseCharacter
 {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "State")
-		float Health;
-
-public:
-	UFUNCTION(BlueprintCallable, Category = "Hit")
-		void Hit(float Power);
-
-	UFUNCTION(BlueprintCallable, Category = "State")
-		bool isDead();
-
-public:
 	AMonster();
 
+	virtual void Hit(float Power) override;
 };

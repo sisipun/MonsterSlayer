@@ -82,17 +82,3 @@ void ASlayer::ChangeWeapon(int index)
 		ASlayer::WEAPON_SOCKET_NAME
 	);
 }
-
-void ASlayer::Hit(float Power)
-{
-	Health -= Power;
-	if (Health < 0)
-	{
-		Health = 0;
-	}
-}
-
-bool ASlayer::isDead()
-{
-	return Health <= 0;
-}
