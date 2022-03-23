@@ -32,6 +32,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
 		TArray<TSubclassOf<AWeapon>> Weapons;
 
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+		float Mana;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "State")
+		float MaxMana;
+
 public:
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 		void ChangeWeapon(int index);

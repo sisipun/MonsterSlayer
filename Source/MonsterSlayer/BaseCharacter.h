@@ -12,7 +12,7 @@ class MONSTERSLAYER_API ABaseCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "State")
+	UPROPERTY(BlueprintReadOnly, Category = "State")
 		float Health;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "State")

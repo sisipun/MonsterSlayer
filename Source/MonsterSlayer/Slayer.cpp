@@ -28,6 +28,7 @@ ASlayer::ASlayer()
 void ASlayer::BeginPlay()
 {
 	Super::BeginPlay();
+	Mana = MaxMana;
 
 	if (Weapons.Num() > 0) {
 		ChangeWeapon(0);
@@ -69,7 +70,9 @@ void ASlayer::ChangeWeapon(int index)
 	}
 
 	FTransform SocketTransform = GetMesh()->GetSocketTransform(ASlayer::WEAPON_SOCKET_NAME);
-	AActor* Weapon = GetWorld()->SpawnActor(Weapons[index], &SocketTransform);
+	FActorSpawnParameters SpawnParams = FActorSpawnParameters();
+	SpawnParams.Instigator = this;
+	AActor* Weapon = GetWorld()->SpawnActor(Weapons[index], &SocketTransform, SpawnParams);
 	CurrentWeapon = Cast<AWeapon>(Weapon);
 	CurrentWeapon->AttachToComponent(
 		GetMesh(),
