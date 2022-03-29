@@ -8,5 +8,4 @@ UCLASS()
 class MONSTERSLAYER_API ASlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
 };

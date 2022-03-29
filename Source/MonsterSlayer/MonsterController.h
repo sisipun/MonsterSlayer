@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 
 #include "AIController.h"
+#include "Perception/AIPerceptionComponent.h"
 
 #include "MonsterController.generated.h"
 
@@ -11,6 +12,12 @@ class MONSTERSLAYER_API AMonsterController : public AAIController
 {
 	GENERATED_BODY()
 
-protected:
-	void BeginPlay() override;
+public:
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AI")
+		UAIPerceptionComponent* AIPerception;
+
+public:
+	AMonsterController();
+
+	virtual void OnPossess(APawn* Pawn) override;
 };

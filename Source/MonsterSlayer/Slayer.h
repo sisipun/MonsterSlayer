@@ -20,10 +20,10 @@ class MONSTERSLAYER_API ASlayer : public ABaseCharacter
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Camera")
 		USpringArmComponent* SpringArm;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Camera")
 		UCameraComponent* FollowCamera;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
