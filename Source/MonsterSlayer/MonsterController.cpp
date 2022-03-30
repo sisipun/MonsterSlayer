@@ -1,6 +1,5 @@
 #include "MonsterController.h"
 
-#include "Engine/World.h"
 #include "Perception/AISenseConfig_Sight.h"
 
 #include "Monster.h"

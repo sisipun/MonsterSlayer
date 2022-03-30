@@ -1,7 +1,5 @@
 #include "Monster.h"
 
-#include "Components/SkeletalMeshComponent.h"
-
 #include "MonsterController.h"
 
 AMonster::AMonster()

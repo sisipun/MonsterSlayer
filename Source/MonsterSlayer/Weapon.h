@@ -15,6 +15,15 @@ class MONSTERSLAYER_API AWeapon : public AActor
 	GENERATED_BODY()
 
 public:
+	/** Event when weapon begins attack. */
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, meta = (DisplayName = "BeginAttack"))
+		void BeginAttack();
+
+	/** Event when weapon ends attack. */
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, meta = (DisplayName = "EndAttack"))
+		void EndAttack();
+
+public:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Body")
 		USceneComponent* Body;
 
@@ -29,15 +38,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BLueprintReadOnly, Category = "Stats")
 		float AttackDelay;
-
-public:
-	/** Event when weapon begins attack. */
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, meta = (DisplayName = "BeginAttack"))
-		void BeginAttack();
-
-	/** Event when weapon ends attack. */
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, meta = (DisplayName = "EndAttack"))
-		void EndAttack();
 
 public:	
 	AWeapon();

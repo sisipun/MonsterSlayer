@@ -1,11 +1,8 @@
 #include "Slayer.h"
 
 #include "Components/InputComponent.h"
-#include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
-
-FName ASlayer::WEAPON_SOCKET_NAME = TEXT("hand_weapon");
 
 ASlayer::ASlayer()
 {
@@ -23,16 +20,6 @@ ASlayer::ASlayer()
 
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
-}
-
-void ASlayer::BeginPlay()
-{
-	Super::BeginPlay();
-	Mana = MaxMana;
-
-	if (Weapons.Num() > 0) {
-		ChangeWeapon(0);
-	}
 }
 
 void ASlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -60,28 +47,4 @@ void ASlayer::MoveRight(float Scale)
 	FRotator YawRotation = FRotator(0.0f, Rotation.Yaw, 0.0f);
 
 	AddMovementInput(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y), Scale);
-}
-
-void ASlayer::ChangeWeapon(int index)
-{
-	if (CurrentWeapon)
-	{
-		CurrentWeapon->Destroy();
-	}
-
-	FTransform SocketTransform = GetMesh()->GetSocketTransform(ASlayer::WEAPON_SOCKET_NAME);
-	FActorSpawnParameters SpawnParams = FActorSpawnParameters();
-	SpawnParams.Instigator = this;
-	AActor* Weapon = GetWorld()->SpawnActor(Weapons[index], &SocketTransform, SpawnParams);
-	CurrentWeapon = Cast<AWeapon>(Weapon);
-	CurrentWeapon->AttachToComponent(
-		GetMesh(),
-		FAttachmentTransformRules(
-			EAttachmentRule::SnapToTarget,
-			EAttachmentRule::SnapToTarget,
-			EAttachmentRule::KeepWorld,
-			true
-		),
-		ASlayer::WEAPON_SOCKET_NAME
-	);
 }

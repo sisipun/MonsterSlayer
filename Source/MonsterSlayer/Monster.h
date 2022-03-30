@@ -2,9 +2,10 @@
 
 #include "CoreMinimal.h"
 
-#include "BaseCharacter.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "GameFramework/Character.h"
+
+#include "BaseCharacter.h"
 
 #include "Monster.generated.h"
 
