@@ -53,6 +53,8 @@ public:
 
 	virtual void BeginPlay() override;
 
+	virtual void BeginDestroy() override;
+
 private:
 	void OnAttackEnd();
 

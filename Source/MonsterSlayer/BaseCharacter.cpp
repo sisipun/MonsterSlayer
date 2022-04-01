@@ -82,3 +82,13 @@ void ABaseCharacter::ChangeWeapon(int index)
 		ABaseCharacter::WEAPON_SOCKET_NAME
 	);
 }
+
+void ABaseCharacter::BeginDestroy()
+{
+	if (CurrentWeapon)
+	{
+		CurrentWeapon->Destroy();
+	}
+
+	Super::BeginDestroy();
+}
