@@ -83,12 +83,12 @@ void ABaseCharacter::ChangeWeapon(int index)
 	);
 }
 
-void ABaseCharacter::BeginDestroy()
+void ABaseCharacter::Destroyed()
 {
+	Super::Destroyed();
+
 	if (CurrentWeapon)
 	{
 		CurrentWeapon->Destroy();
 	}
-
-	Super::BeginDestroy();
 }
