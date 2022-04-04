@@ -16,6 +16,8 @@ void ABaseCharacter::BeginPlay()
 
 	Health = MaxHealth;
 	Mana = MaxMana;
+
+	OnTakeAnyDamage.AddDynamic(this, &ABaseCharacter::Hit);
 	if (Weapons.Num() > 0) {
 		ChangeWeapon(0);
 	}
@@ -29,6 +31,7 @@ void ABaseCharacter::Attack()
 
 	bIsAttacking = true;
 	CurrentWeapon->BeginAttack();
+
 	FTimerHandle TimerHandler;
 	GetWorldTimerManager().SetTimer(TimerHandler, this, &ABaseCharacter::OnAttackEnd, CurrentWeapon->AttackDelay, false);
 }
@@ -39,13 +42,9 @@ void ABaseCharacter::OnAttackEnd()
 	bIsAttacking = false;
 }
 
-void ABaseCharacter::Hit(float Power)
+void ABaseCharacter::Hit(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
-	Health -= Power;
-	if (Health < 0)
-	{
-		Health = 0;
-	}
+	Health = FMath::Clamp(Health - Damage, 0.0f, MaxHealth);
 }
 
 bool ABaseCharacter::isDead()

@@ -18,7 +18,7 @@ public:
 		virtual void Attack();
 
 	UFUNCTION(BlueprintCallable, Category = "State")
-		virtual void Hit(float Power);
+		virtual void Hit(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 		void ChangeWeapon(int index);

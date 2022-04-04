@@ -9,9 +9,9 @@ AMonster::AMonster()
 	AIControllerClass = AMonsterController::StaticClass();
 }
 
-void AMonster::Hit(float Power)
+void AMonster::Hit(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
-	Super::Hit(Power);
+	Super::Hit(DamagedActor, Damage, DamageType, InstigatedBy, DamageCauser);
 	if (Health <= 0)
 	{
 		Destroy();
