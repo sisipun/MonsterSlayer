@@ -35,16 +35,22 @@ void ASlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ASlayer::MoveForward(float Scale)
 {
-	FRotator Rotation = Controller->GetControlRotation();
-	FRotator YawRotation = FRotator(0.0f, Rotation.Yaw, 0.0f);
+	if (!isDead() && !isAttacking()) 
+	{
+		FRotator Rotation = Controller->GetControlRotation();
+		FRotator YawRotation = FRotator(0.0f, Rotation.Yaw, 0.0f);
 
-	AddMovementInput(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X), Scale);
+		AddMovementInput(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X), Scale);
+	}
 }
 
 void ASlayer::MoveRight(float Scale)
 {
-	FRotator Rotation = Controller->GetControlRotation();
-	FRotator YawRotation = FRotator(0.0f, Rotation.Yaw, 0.0f);
+	if (!isDead() && !isAttacking())
+	{
+		FRotator Rotation = Controller->GetControlRotation();
+		FRotator YawRotation = FRotator(0.0f, Rotation.Yaw, 0.0f);
 
-	AddMovementInput(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y), Scale);
+		AddMovementInput(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y), Scale);
+	}
 }

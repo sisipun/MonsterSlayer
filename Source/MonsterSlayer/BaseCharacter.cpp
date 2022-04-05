@@ -8,6 +8,8 @@ FName ABaseCharacter::WEAPON_SOCKET_NAME = TEXT("weapon");
 ABaseCharacter::ABaseCharacter()
 {
 	PrimaryActorTick.bCanEverTick = false;
+
+	AttackAnimation = CreateDefaultSubobject<UAnimMontage>(TEXT("Attack Animation"));
 }
 
 void ABaseCharacter::BeginPlay()
@@ -18,27 +20,38 @@ void ABaseCharacter::BeginPlay()
 	Mana = MaxMana;
 
 	OnTakeAnyDamage.AddDynamic(this, &ABaseCharacter::Hit);
-	if (Weapons.Num() > 0) {
+	if (Weapons.Num() > 0) 
+	{
 		ChangeWeapon(0);
 	}
 }
 
 void ABaseCharacter::Attack()
 {
-	if (!CurrentWeapon || bIsAttacking) {
+	if (!CurrentWeapon || bIsAttacking) 
+	{
 		return;
 	}
 
 	bIsAttacking = true;
-	CurrentWeapon->BeginAttack();
-
-	FTimerHandle TimerHandler;
-	GetWorldTimerManager().SetTimer(TimerHandler, this, &ABaseCharacter::OnAttackEnd, CurrentWeapon->AttackDelay, false);
+	PlayAnimMontage(AttackAnimation);
 }
 
-void ABaseCharacter::OnAttackEnd()
+void ABaseCharacter::BeginAttack()
 {
-	CurrentWeapon->EndAttack();
+	if (CurrentWeapon) 
+	{
+		CurrentWeapon->BeginAttack();
+	}
+}
+
+void ABaseCharacter::EndAttack()
+{
+	if (CurrentWeapon) 
+	{
+		CurrentWeapon->EndAttack();
+	}
+
 	bIsAttacking = false;
 }
 
