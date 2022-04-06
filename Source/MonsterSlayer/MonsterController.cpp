@@ -1,6 +1,7 @@
 #include "MonsterController.h"
 
 #include "Perception/AISenseConfig_Sight.h"
+#include "Perception/AISenseConfig_Damage.h"
 
 #include "Monster.h"
 
@@ -12,8 +13,12 @@ AMonsterController::AMonsterController()
 	UAISenseConfig_Sight* Sight = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight Sense"));
 	Sight->DetectionByAffiliation.bDetectNeutrals = true;
 
+	UAISenseConfig_Damage* Damage = CreateDefaultSubobject<UAISenseConfig_Damage>(TEXT("Sight Sense"));
+	Sight->DetectionByAffiliation.bDetectNeutrals = true;
+
 	GetPerceptionComponent()->SetDominantSense(*Sight->GetSenseImplementation());
 	GetPerceptionComponent()->ConfigureSense(*Sight);
+	GetPerceptionComponent()->ConfigureSense(*Damage);
 }
 
 void AMonsterController::OnPossess(APawn* Pawn) 

@@ -24,11 +24,4 @@ public:
 
 public:
 	ASlayer();
-
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-private:
-	void MoveForward(float Scale);
-
-	void MoveRight(float Scale);
 };

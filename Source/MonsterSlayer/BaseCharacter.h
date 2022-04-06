@@ -19,16 +19,16 @@ public:
 		virtual void Hit(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
-		virtual bool isDead();
+		bool CanUseAbility();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
-		virtual bool isAttacking();
+		bool IsDead();
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 		void ChangeWeapon(int index);
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
-		virtual void Attack();
+		void Attack();
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 		void BeginAttack();
@@ -67,6 +67,7 @@ public:
 
 private:
 	bool bIsAttacking;
+	int currentWeaponIndex;
 
 	static FName WEAPON_SOCKET_NAME;
 };

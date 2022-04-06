@@ -8,4 +8,12 @@ UCLASS()
 class MONSTERSLAYER_API ASlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+public:
+	virtual void SetupInputComponent() override;
+
+private:
+	void MoveForward(float Scale);
+
+	void MoveRight(float Scale);
 };

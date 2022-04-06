@@ -1,6 +1,7 @@
 #include "BaseCharacter.h"
 
 #include "Components/SkeletalMeshComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "TimerManager.h"
 
 FName ABaseCharacter::WEAPON_SOCKET_NAME = TEXT("weapon");
@@ -19,16 +20,17 @@ void ABaseCharacter::BeginPlay()
 	Health = MaxHealth;
 	Mana = MaxMana;
 
-	OnTakeAnyDamage.AddDynamic(this, &ABaseCharacter::Hit);
 	if (Weapons.Num() > 0) 
 	{
 		ChangeWeapon(0);
 	}
+
+	OnTakeAnyDamage.AddDynamic(this, &ABaseCharacter::Hit);
 }
 
 void ABaseCharacter::Attack()
 {
-	if (!CurrentWeapon || bIsAttacking) 
+	if (!CurrentWeapon || !CanUseAbility())
 	{
 		return;
 	}
@@ -60,19 +62,23 @@ void ABaseCharacter::Hit(AActor* DamagedActor, float Damage, const UDamageType* 
 	Health = FMath::Clamp(Health - Damage, 0.0f, MaxHealth);
 }
 
-bool ABaseCharacter::isDead()
+bool ABaseCharacter::CanUseAbility()
+{
+	return !IsDead() && !bIsAttacking && !GetCharacterMovement()->IsFalling();
+}
+
+bool ABaseCharacter::IsDead()
 {
 	return Health <= 0;
 }
 
-bool ABaseCharacter::isAttacking()
-{
-	return bIsAttacking;
-}
-
-
 void ABaseCharacter::ChangeWeapon(int index)
 {
+	if (!CanUseAbility())
+	{
+		return;
+	}
+
 	if (CurrentWeapon)
 	{
 		CurrentWeapon->Destroy();
