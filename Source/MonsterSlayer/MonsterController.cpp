@@ -13,18 +13,14 @@ AMonsterController::AMonsterController()
 	UAISenseConfig_Sight* Sight = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight Sense"));
 	Sight->DetectionByAffiliation.bDetectNeutrals = true;
 
-	UAISenseConfig_Damage* Damage = CreateDefaultSubobject<UAISenseConfig_Damage>(TEXT("Sight Sense"));
-	Sight->DetectionByAffiliation.bDetectNeutrals = true;
-
 	GetPerceptionComponent()->SetDominantSense(*Sight->GetSenseImplementation());
 	GetPerceptionComponent()->ConfigureSense(*Sight);
-	GetPerceptionComponent()->ConfigureSense(*Damage);
 }
 
-void AMonsterController::OnPossess(APawn* Pawn) 
+void AMonsterController::OnPossess(APawn* PossessedPawn) 
 {
-	Super::OnPossess(Pawn);
+	Super::OnPossess(PossessedPawn);
 
-	AMonster* Monster = Cast<AMonster>(Pawn);
+	AMonster* Monster = Cast<AMonster>(PossessedPawn);
 	RunBehaviorTree(Monster->BehaviorTree);
 }

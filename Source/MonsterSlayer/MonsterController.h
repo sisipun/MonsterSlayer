@@ -19,5 +19,5 @@ public:
 public:
 	AMonsterController();
 
-	virtual void OnPossess(APawn* Pawn) override;
+	virtual void OnPossess(APawn* PossessedPawn) override;
 };

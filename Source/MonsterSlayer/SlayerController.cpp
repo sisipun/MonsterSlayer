@@ -4,6 +4,8 @@
 
 void ASlayerController::SetupInputComponent()
 {
+	Super::SetupInputComponent();
+
 	InputComponent->BindAxis(TEXT("LookUp"), this, &ASlayerController::AddPitchInput);
 	InputComponent->BindAxis(TEXT("LookRight"), this, &ASlayerController::AddYawInput);
 
