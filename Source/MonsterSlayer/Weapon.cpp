@@ -18,3 +18,17 @@ AWeapon::AWeapon()
 	Mesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 }
 
+void AWeapon::BeginPlay()
+{
+	Collider->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+}
+
+void AWeapon::BeginAttack()
+{
+	Collider->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+}
+
+void AWeapon::EndAttack()
+{
+	Collider->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+}

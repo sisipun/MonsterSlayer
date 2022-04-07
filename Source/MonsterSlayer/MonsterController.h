@@ -13,11 +13,5 @@ class MONSTERSLAYER_API AMonsterController : public AAIController
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AI")
-		UAIPerceptionComponent* AIPerception;
-
-public:
-	AMonsterController();
-
 	virtual void OnPossess(APawn* PossessedPawn) override;
 };

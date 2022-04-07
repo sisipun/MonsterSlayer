@@ -10,6 +10,15 @@ ABaseCharacter::ABaseCharacter()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
+
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+
+	Health = MaxHealth;
+	Mana = MaxMana;
+
 	AttackAnimation = CreateDefaultSubobject<UAnimMontage>(TEXT("Attack Animation"));
 }
 
@@ -19,7 +28,6 @@ void ABaseCharacter::BeginPlay()
 
 	Health = MaxHealth;
 	Mana = MaxMana;
-
 	if (Weapons.Num() > 0) 
 	{
 		ChangeWeapon(0);
@@ -62,12 +70,12 @@ void ABaseCharacter::Hit(AActor* DamagedActor, float Damage, const UDamageType* 
 	Health = FMath::Clamp(Health - Damage, 0.0f, MaxHealth);
 }
 
-bool ABaseCharacter::CanUseAbility()
+bool ABaseCharacter::CanUseAbility() const
 {
 	return !IsDead() && !bIsAttacking && !GetCharacterMovement()->IsFalling();
 }
 
-bool ABaseCharacter::IsDead()
+bool ABaseCharacter::IsDead() const
 {
 	return Health <= 0;
 }

@@ -19,10 +19,10 @@ public:
 		virtual void Hit(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
-		bool CanUseAbility();
+		bool CanUseAbility() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
-		bool IsDead();
+		bool IsDead() const;
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 		void ChangeWeapon(int index);

@@ -15,12 +15,10 @@ class MONSTERSLAYER_API AWeapon : public AActor
 	GENERATED_BODY()
 
 public:
-	/** Event when weapon begins attack. */
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, meta = (DisplayName = "BeginAttack"))
+	UFUNCTION(BlueprintCallable, Category = "Attack")
 		void BeginAttack();
 
-	/** Event when weapon ends attack. */
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, meta = (DisplayName = "EndAttack"))
+	UFUNCTION(BlueprintCallable, Category = "Attack")
 		void EndAttack();
 
 public:
@@ -36,10 +34,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
 		float Power;
 
-	UPROPERTY(EditAnywhere, BLueprintReadOnly, Category = "Stats")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
 		float AttackDelay;
 
 public:	
 	AWeapon();
 
+	virtual void BeginPlay() override;
 };
