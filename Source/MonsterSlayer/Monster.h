@@ -21,5 +21,4 @@ public:
 public:
 	AMonster();
 
-	virtual void Hit(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser) override;
 };
