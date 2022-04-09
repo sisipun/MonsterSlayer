@@ -37,25 +37,25 @@ public:
 		void EndAttack();
 
 public:
-	UPROPERTY(BlueprintReadOnly, Category = "State")
+	UPROPERTY(BlueprintReadOnly, Category=State)
 		float Health;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "State")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=State)
 		float MaxHealth;
 
-	UPROPERTY(BlueprintReadOnly, Category = "State")
+	UPROPERTY(BlueprintReadOnly, Category=State)
 		float Mana;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "State")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=State)
 		float MaxMana;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Weapon")
+	UPROPERTY(BlueprintReadWrite, Category=Weapon)
 		AWeapon* CurrentWeapon;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Weapon)
 		TArray<TSubclassOf<AWeapon>> Weapons;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Weapon)
 		UAnimMontage* AttackAnimation;
 
 public:

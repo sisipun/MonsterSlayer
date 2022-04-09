@@ -12,7 +12,7 @@ AWeapon::AWeapon()
 	Collider = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Collider"));
 	Collider->SetupAttachment(Body);
 
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(Body);
 
 	Mesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
