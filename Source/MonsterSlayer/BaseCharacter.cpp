@@ -16,10 +16,18 @@ ABaseCharacter::ABaseCharacter()
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 
-	Health = MaxHealth;
-	Mana = MaxMana;
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
+	GetMesh()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
 
 	AttackAnimation = CreateDefaultSubobject<UAnimMontage>(TEXT("Attack Animation"));
+}
+
+void ABaseCharacter::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
+{
+	Super::PostEditChangeProperty(PropertyChangedEvent);
+
+	Health = MaxHealth;
+	Mana = MaxMana;
 }
 
 void ABaseCharacter::BeginPlay()
@@ -42,6 +50,7 @@ void ABaseCharacter::Attack()
 	{
 		return;
 	}
+
 
 	bIsAttacking = true;
 	PlayAnimMontage(AttackAnimation);

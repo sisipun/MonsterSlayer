@@ -37,13 +37,13 @@ public:
 		void EndAttack();
 
 public:
-	UPROPERTY(BlueprintReadOnly, Category=State)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=State)
 		float Health;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=State)
 		float MaxHealth;
 
-	UPROPERTY(BlueprintReadOnly, Category=State)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=State)
 		float Mana;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=State)
@@ -60,6 +60,8 @@ public:
 
 public:
 	ABaseCharacter();
+
+	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 
 	virtual void BeginPlay() override;
 
