@@ -20,6 +20,14 @@ ABaseCharacter::ABaseCharacter()
 	GetMesh()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
 
 	AttackAnimation = CreateDefaultSubobject<UAnimMontage>(TEXT("Attack Animation"));
+
+	AbilitySystemComponent = CreateDefaultSubobject<UCharacterAbilitySystemComponent>(TEXT("Ability System Component"));
+	Attributes = CreateDefaultSubobject<UCharacterAttributeSet>(TEXT("Attributes"));
+}
+
+UAbilitySystemComponent* ABaseCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
 }
 
 void ABaseCharacter::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
@@ -30,13 +38,50 @@ void ABaseCharacter::PostEditChangeProperty(FPropertyChangedEvent& PropertyChang
 	Mana = MaxMana;
 }
 
+void ABaseCharacter::PossessedBy(AController* Controller)
+{
+	Super::PossessedBy(Controller);
+
+	if (AbilitySystemComponent)
+	{
+		AbilitySystemComponent->InitAbilityActorInfo(Cast<AActor>(Controller), this);
+		InitializeAbilities();
+	}
+}
+
+void ABaseCharacter::InitializeAbilities()
+{
+	if (!AbilitySystemComponent)
+	{
+		return;
+	}
+
+	for (TSubclassOf<UCharacterGameplayAbility>& Ability : Abilities)
+	{
+		AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(Ability, 1.0f, INDEX_NONE, this));
+	}
+
+	for (TSubclassOf<UGameplayEffect>& Effect : PassiveEffects)
+	{
+		FGameplayEffectContextHandle ContextHandle = AbilitySystemComponent->MakeEffectContext();
+		ContextHandle.AddSourceObject(this);
+
+		FGameplayEffectSpecHandle SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(Effect, 1.0f, ContextHandle);
+		if (SpecHandle.IsValid())
+		{
+			FActiveGameplayEffectHandle GameplayEffectHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+		}
+	}
+}
+
+
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
 	Health = MaxHealth;
 	Mana = MaxMana;
-	if (Weapons.Num() > 0) 
+	if (Weapons.Num() > 0)
 	{
 		ChangeWeapon(0);
 	}
@@ -58,7 +103,7 @@ void ABaseCharacter::Attack()
 
 void ABaseCharacter::BeginAttack()
 {
-	if (CurrentWeapon) 
+	if (CurrentWeapon)
 	{
 		CurrentWeapon->BeginAttack();
 	}
@@ -66,7 +111,7 @@ void ABaseCharacter::BeginAttack()
 
 void ABaseCharacter::EndAttack()
 {
-	if (CurrentWeapon) 
+	if (CurrentWeapon)
 	{
 		CurrentWeapon->EndAttack();
 	}

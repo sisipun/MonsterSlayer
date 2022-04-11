@@ -2,15 +2,19 @@
 
 #include "CoreMinimal.h"
 
+#include "AbilitySystemInterface.h"
 #include "Animation/AnimMontage.h"
 #include "GameFramework/Character.h"
 
 #include "Weapon.h"
+#include "CharacterAbilitySystemComponent.h"
+#include "CharacterAttributeSet.h"
+#include "CharacterGameplayAbility.h"
 
 #include "BaseCharacter.generated.h"
 
 UCLASS(Abstract)
-class MONSTERSLAYER_API ABaseCharacter : public ACharacter
+class MONSTERSLAYER_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -37,39 +41,56 @@ public:
 		void EndAttack();
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=State)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "State")
 		float Health;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=State)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "State")
 		float MaxHealth;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=State)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "State")
 		float Mana;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=State)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "State")
 		float MaxMana;
 
-	UPROPERTY(BlueprintReadWrite, Category=Weapon)
+	UPROPERTY(BlueprintReadWrite, Category = "Weapon")
 		AWeapon* CurrentWeapon;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Weapon)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
 		TArray<TSubclassOf<AWeapon>> Weapons;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Weapon)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 		UAnimMontage* AttackAnimation;
 
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Ability")
+		UCharacterAbilitySystemComponent* AbilitySystemComponent;
+
+	UPROPERTY()
+		UCharacterAttributeSet* Attributes;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")
+		TArray<TSubclassOf<UCharacterGameplayAbility>> Abilities;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")
+		TArray<TSubclassOf<UGameplayEffect>> PassiveEffects;
 public:
 	ABaseCharacter();
 
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
+
+	virtual void PossessedBy(AController* Controller) override;
 
 	virtual void BeginPlay() override;
 
 	virtual void Destroyed() override;
 
 private:
+	void InitializeAbilities();
+
+private:
 	bool bIsAttacking;
-	int currentWeaponIndex;
 
 	static FName WEAPON_SOCKET_NAME;
 };
