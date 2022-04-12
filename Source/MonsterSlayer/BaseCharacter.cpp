@@ -25,19 +25,6 @@ ABaseCharacter::ABaseCharacter()
 	Attributes = CreateDefaultSubobject<UCharacterAttributeSet>(TEXT("Attributes"));
 }
 
-UAbilitySystemComponent* ABaseCharacter::GetAbilitySystemComponent() const
-{
-	return AbilitySystemComponent;
-}
-
-void ABaseCharacter::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
-{
-	Super::PostEditChangeProperty(PropertyChangedEvent);
-
-	Health = MaxHealth;
-	Mana = MaxMana;
-}
-
 void ABaseCharacter::PossessedBy(AController* Controller)
 {
 	Super::PossessedBy(Controller);
@@ -79,14 +66,84 @@ void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Health = MaxHealth;
-	Mana = MaxMana;
 	if (Weapons.Num() > 0)
 	{
 		ChangeWeapon(0);
 	}
+}
 
-	OnTakeAnyDamage.AddDynamic(this, &ABaseCharacter::Hit);
+UAbilitySystemComponent* ABaseCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
+bool ABaseCharacter::CanUseAbility() const
+{
+	return !IsDead();
+}
+
+float ABaseCharacter::GetMaxHealth() const
+{
+	return Attributes->GetMaxHealth();
+}
+
+float ABaseCharacter::GetHealth() const
+{
+	return Attributes->GetHealth();
+}
+
+float ABaseCharacter::GetMaxMana() const
+{
+	return Attributes->GetMaxMana();
+}
+
+float ABaseCharacter::GetMana() const
+{
+	return Attributes->GetMana();
+}
+
+bool ABaseCharacter::IsDead() const
+{
+	return GetHealth() <= 0;
+}
+
+bool ABaseCharacter::ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags)
+{
+	if (AbilitySystemComponent)
+	{
+		return AbilitySystemComponent->TryActivateAbilitiesByTag(AbilityTags);
+	}
+
+	return false;
+}
+
+void ABaseCharacter::ChangeWeapon(int index)
+{
+	if (!CanUseAbility())
+	{
+		return;
+	}
+
+	if (CurrentWeapon)
+	{
+		CurrentWeapon->Destroy();
+	}
+
+	FTransform SocketTransform = GetMesh()->GetSocketTransform(ABaseCharacter::WEAPON_SOCKET_NAME);
+	FActorSpawnParameters SpawnParams = FActorSpawnParameters();
+	SpawnParams.Instigator = this;
+	AActor* Weapon = GetWorld()->SpawnActor(Weapons[index], &SocketTransform, SpawnParams);
+	CurrentWeapon = Cast<AWeapon>(Weapon);
+	CurrentWeapon->AttachToComponent(
+		GetMesh(),
+		FAttachmentTransformRules(
+			EAttachmentRule::SnapToTarget,
+			EAttachmentRule::SnapToTarget,
+			EAttachmentRule::KeepWorld,
+			true
+		),
+		ABaseCharacter::WEAPON_SOCKET_NAME
+	);
 }
 
 void ABaseCharacter::Attack()
@@ -117,50 +174,6 @@ void ABaseCharacter::EndAttack()
 	}
 
 	bIsAttacking = false;
-}
-
-void ABaseCharacter::Hit(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
-{
-	Health = FMath::Clamp(Health - Damage, 0.0f, MaxHealth);
-}
-
-bool ABaseCharacter::CanUseAbility() const
-{
-	return !IsDead() && !bIsAttacking && !GetCharacterMovement()->IsFalling();
-}
-
-bool ABaseCharacter::IsDead() const
-{
-	return Health <= 0;
-}
-
-void ABaseCharacter::ChangeWeapon(int index)
-{
-	if (!CanUseAbility())
-	{
-		return;
-	}
-
-	if (CurrentWeapon)
-	{
-		CurrentWeapon->Destroy();
-	}
-
-	FTransform SocketTransform = GetMesh()->GetSocketTransform(ABaseCharacter::WEAPON_SOCKET_NAME);
-	FActorSpawnParameters SpawnParams = FActorSpawnParameters();
-	SpawnParams.Instigator = this;
-	AActor* Weapon = GetWorld()->SpawnActor(Weapons[index], &SocketTransform, SpawnParams);
-	CurrentWeapon = Cast<AWeapon>(Weapon);
-	CurrentWeapon->AttachToComponent(
-		GetMesh(),
-		FAttachmentTransformRules(
-			EAttachmentRule::SnapToTarget,
-			EAttachmentRule::SnapToTarget,
-			EAttachmentRule::KeepWorld,
-			true
-		),
-		ABaseCharacter::WEAPON_SOCKET_NAME
-	);
 }
 
 void ABaseCharacter::Destroyed()

@@ -36,4 +36,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, MaxHealth);
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, Mana);
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, MaxMana);
+
+public:
+	UCharacterAttributeSet();
 };

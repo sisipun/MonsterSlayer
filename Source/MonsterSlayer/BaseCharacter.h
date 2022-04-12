@@ -19,14 +19,26 @@ class MONSTERSLAYER_API ABaseCharacter : public ACharacter, public IAbilitySyste
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintCallable, Category = "State")
-		virtual void Hit(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
-
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
 		bool CanUseAbility() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
 		bool IsDead() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
+		float GetMaxHealth() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
+		float GetHealth() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
+		float GetMaxMana() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
+		float GetMana() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Abilitiy")
+		bool ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags);
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 		void ChangeWeapon(int index);
@@ -41,18 +53,6 @@ public:
 		void EndAttack();
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "State")
-		float Health;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "State")
-		float MaxHealth;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "State")
-		float Mana;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "State")
-		float MaxMana;
-
 	UPROPERTY(BlueprintReadWrite, Category = "Weapon")
 		AWeapon* CurrentWeapon;
 
@@ -77,8 +77,6 @@ public:
 	ABaseCharacter();
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-
-	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 
 	virtual void PossessedBy(AController* Controller) override;
 
