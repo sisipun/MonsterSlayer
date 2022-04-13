@@ -53,6 +53,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
 		TArray<TSubclassOf<AWeapon>> Weapons;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
+		UAnimMontage* AttackAnimation;
+
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Ability")
 		UCharacterAbilitySystemComponent* AbilitySystemComponent;
 

@@ -15,22 +15,22 @@ void ASlayerController::SetupInputComponent()
 
 void ASlayerController::MoveForward(float Scale)
 {
-	ABaseCharacter* Character = Cast<ABaseCharacter>(GetPawn());
-	if (Character && Character->CanUseAbility())
+	ABaseCharacter* ControlledCharacter = Cast<ABaseCharacter>(GetPawn());
+	if (ControlledCharacter && !ControlledCharacter->IsMovementBlock())
 	{
 		FRotator YawRotation = FRotator(0.0f, GetControlRotation().Yaw, 0.0f);
 
-		Character->AddMovementInput(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X), Scale);
+		ControlledCharacter->AddMovementInput(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X), Scale);
 	}
 }
 
 void ASlayerController::MoveRight(float Scale)
 {
-	ABaseCharacter* Character = Cast<ABaseCharacter>(GetPawn());
-	if (Character && Character->CanUseAbility())
+	ABaseCharacter* ControlledCharacter = Cast<ABaseCharacter>(GetPawn());
+	if (ControlledCharacter && !ControlledCharacter->IsMovementBlock())
 	{
 		FRotator YawRotation = FRotator(0.0f, GetControlRotation().Yaw, 0.0f);
 
-		Character->AddMovementInput(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y), Scale);
+		ControlledCharacter->AddMovementInput(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y), Scale);
 	}
 }

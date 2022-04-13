@@ -25,40 +25,29 @@ ABaseCharacter::ABaseCharacter()
 	Attributes = CreateDefaultSubobject<UCharacterAttributeSet>(TEXT("Attributes"));
 }
 
-void ABaseCharacter::PossessedBy(AController* Controller)
+void ABaseCharacter::PossessedBy(AController* OwnerController)
 {
-	Super::PossessedBy(Controller);
+	Super::PossessedBy(OwnerController);
 
-	if (AbilitySystemComponent)
-	{
-		AbilitySystemComponent->InitAbilityActorInfo(this, this);
-		InitializeAbilities();
-	}
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	InitializeAbilities();
 }
 
 void ABaseCharacter::InitializeAbilities()
 {
-	if (!AbilitySystemComponent)
-	{
-		return;
-	}
-
 	for (TSubclassOf<UCharacterGameplayAbility>& Ability : Abilities)
 	{
 		AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(Ability, 1.0f, INDEX_NONE, this));
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("0"));
 	for (TSubclassOf<UGameplayEffect>& Effect : PassiveEffects)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("123"));
 		FGameplayEffectContextHandle ContextHandle = AbilitySystemComponent->MakeEffectContext();
 		ContextHandle.AddSourceObject(this);
 
 		FGameplayEffectSpecHandle SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(Effect, 1.0f, ContextHandle);
 		if (SpecHandle.IsValid())
 		{
-			UE_LOG(LogTemp, Warning, TEXT("456"));
 			FActiveGameplayEffectHandle GameplayEffectHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 		}
 	}
@@ -78,11 +67,6 @@ void ABaseCharacter::BeginPlay()
 UAbilitySystemComponent* ABaseCharacter::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
-}
-
-bool ABaseCharacter::CanUseAbility() const
-{
-	return !IsDead();
 }
 
 float ABaseCharacter::GetMaxHealth() const
@@ -115,23 +99,23 @@ bool ABaseCharacter::IsDead() const
 	return GetHealth() <= 0;
 }
 
+bool ABaseCharacter::IsMovementBlock() const
+{
+	return IsDead() || AbilitySystemComponent->GetActiveAbilitiesWithTags(MovementBlockTags).Num() > 0;
+}
+
 bool ABaseCharacter::ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags)
 {
-	if (AbilitySystemComponent)
+	if (!IsDead()) 
 	{
 		return AbilitySystemComponent->TryActivateAbilitiesByTag(AbilityTags);
 	}
-
+	 
 	return false;
 }
 
 void ABaseCharacter::ChangeWeapon(int index)
 {
-	if (!CanUseAbility())
-	{
-		return;
-	}
-
 	if (CurrentWeapon)
 	{
 		CurrentWeapon->Destroy();
@@ -152,36 +136,6 @@ void ABaseCharacter::ChangeWeapon(int index)
 		),
 		ABaseCharacter::WEAPON_SOCKET_NAME
 	);
-}
-
-void ABaseCharacter::Attack()
-{
-	if (!CurrentWeapon || !CanUseAbility())
-	{
-		return;
-	}
-
-
-	bIsAttacking = true;
-	PlayAnimMontage(AttackAnimation);
-}
-
-void ABaseCharacter::BeginAttack()
-{
-	if (CurrentWeapon)
-	{
-		CurrentWeapon->BeginAttack();
-	}
-}
-
-void ABaseCharacter::EndAttack()
-{
-	if (CurrentWeapon)
-	{
-		CurrentWeapon->EndAttack();
-	}
-
-	bIsAttacking = false;
 }
 
 void ABaseCharacter::Destroyed()

@@ -7,7 +7,7 @@ AWeapon::AWeapon()
 	PrimaryActorTick.bCanEverTick = false;
 
 	Body = CreateDefaultSubobject<USceneComponent>(TEXT("Body"));
-	Body->SetupAttachment(RootComponent);
+	SetRootComponent(RootComponent);
 
 	Collider = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Collider"));
 	Collider->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
