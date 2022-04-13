@@ -31,11 +31,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 		FGameplayAttributeData MaxMana;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
+		FGameplayAttributeData AttackPower;
+
 public:
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, Health);
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, MaxHealth);
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, Mana);
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, MaxMana);
+	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, AttackPower);
 
 public:
 	UCharacterAttributeSet();

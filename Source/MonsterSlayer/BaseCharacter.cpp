@@ -31,7 +31,7 @@ void ABaseCharacter::PossessedBy(AController* Controller)
 
 	if (AbilitySystemComponent)
 	{
-		AbilitySystemComponent->InitAbilityActorInfo(Cast<AActor>(Controller), this);
+		AbilitySystemComponent->InitAbilityActorInfo(this, this);
 		InitializeAbilities();
 	}
 }
@@ -48,14 +48,17 @@ void ABaseCharacter::InitializeAbilities()
 		AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(Ability, 1.0f, INDEX_NONE, this));
 	}
 
+	UE_LOG(LogTemp, Warning, TEXT("0"));
 	for (TSubclassOf<UGameplayEffect>& Effect : PassiveEffects)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("123"));
 		FGameplayEffectContextHandle ContextHandle = AbilitySystemComponent->MakeEffectContext();
 		ContextHandle.AddSourceObject(this);
 
 		FGameplayEffectSpecHandle SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(Effect, 1.0f, ContextHandle);
 		if (SpecHandle.IsValid())
 		{
+			UE_LOG(LogTemp, Warning, TEXT("456"));
 			FActiveGameplayEffectHandle GameplayEffectHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 		}
 	}
@@ -100,6 +103,11 @@ float ABaseCharacter::GetMaxMana() const
 float ABaseCharacter::GetMana() const
 {
 	return Attributes->GetMana();
+}
+
+float ABaseCharacter::GetAttackPower() const
+{
+	return Attributes->GetAttackPower();
 }
 
 bool ABaseCharacter::IsDead() const

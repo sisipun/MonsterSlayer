@@ -37,6 +37,9 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
 		float GetMana() const;
 
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
+		float GetAttackPower() const;
+
 	UFUNCTION(BlueprintCallable, Category = "Abilitiy")
 		bool ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags);
 

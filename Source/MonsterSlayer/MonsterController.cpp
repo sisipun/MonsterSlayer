@@ -5,7 +5,7 @@
 
 #include "Monster.h"
 
-void AMonsterController::OnPossess(APawn* PossessedPawn) 
+void AMonsterController::OnPossess(APawn* PossessedPawn)
 {
 	Super::OnPossess(PossessedPawn);
 
