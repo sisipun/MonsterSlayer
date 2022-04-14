@@ -19,8 +19,6 @@ ABaseCharacter::ABaseCharacter()
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
 	GetMesh()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
 
-	AttackAnimation = CreateDefaultSubobject<UAnimMontage>(TEXT("Attack Animation"));
-
 	AbilitySystemComponent = CreateDefaultSubobject<UCharacterAbilitySystemComponent>(TEXT("Ability System Component"));
 	Attributes = CreateDefaultSubobject<UCharacterAttributeSet>(TEXT("Attributes"));
 }

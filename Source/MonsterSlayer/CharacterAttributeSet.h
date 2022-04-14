@@ -43,4 +43,6 @@ public:
 
 public:
 	UCharacterAttributeSet();
+
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 };
