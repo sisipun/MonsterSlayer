@@ -13,5 +13,5 @@ class MONSTERSLAYER_API UCharacterAbilitySystemComponent : public UAbilitySystem
 	GENERATED_BODY()
 
 public:
-	TArray<UCharacterGameplayAbility*> GetActiveAbilitiesWithTags(const FGameplayTagContainer& Tags) const;
+	TArray<UCharacterGameplayAbility*> GetActiveAbilitiesWithTags(const TArray<FGameplayTagContainer>& Tags) const;
 };

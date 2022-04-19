@@ -66,7 +66,7 @@ public:
 		TArray<TSubclassOf<UGameplayEffect>> PassiveEffects;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")
-		FGameplayTagContainer MovementBlockTags;
+		TArray<FGameplayTagContainer> MovementBlockTags;
 public:
 	ABaseCharacter();
 
