@@ -46,6 +46,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 		void ChangeWeapon(int index);
 
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Attack")
+		void BeginPunch();
+
 public:
 	UPROPERTY(BlueprintReadWrite, Category = "Weapon")
 		AWeapon* CurrentWeapon;

@@ -11,7 +11,4 @@ UCLASS()
 class MONSTERSLAYER_API AMonsterController : public AAIController
 {
 	GENERATED_BODY()
-
-public:
-	virtual void OnPossess(APawn* PossessedPawn) override;
 };
