@@ -32,6 +32,9 @@ public:
 		USkeletalMeshComponent* Mesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stats")
+		FName Name;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Stats")
 		float Power;
 
 public:

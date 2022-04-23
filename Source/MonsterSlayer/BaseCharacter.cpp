@@ -122,6 +122,8 @@ void ABaseCharacter::ChangeWeapon(int index)
 	FTransform SocketTransform = GetMesh()->GetSocketTransform(ABaseCharacter::WEAPON_SOCKET_NAME);
 	FActorSpawnParameters SpawnParams = FActorSpawnParameters();
 	SpawnParams.Instigator = this;
+	SpawnParams.bDeferConstruction = false;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	AActor* Weapon = GetWorld()->SpawnActor(Weapons[index], &SocketTransform, SpawnParams);
 	CurrentWeapon = Cast<AWeapon>(Weapon);
 	CurrentWeapon->AttachToComponent(
