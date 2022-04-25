@@ -70,10 +70,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")
 		TArray<FGameplayTagContainer> MovementBlockTags;
-
-	UPROPERTY(BlueprintReadWrite, Category = "State")
-		bool bAttackComboActivated;
-
 public:
 	ABaseCharacter();
 

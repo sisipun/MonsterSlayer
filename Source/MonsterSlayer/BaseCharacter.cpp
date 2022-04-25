@@ -51,7 +51,6 @@ void ABaseCharacter::InitializeAbilities()
 	}
 }
 
-
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
