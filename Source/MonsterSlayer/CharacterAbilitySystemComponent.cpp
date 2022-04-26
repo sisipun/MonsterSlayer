@@ -1,5 +1,9 @@
 #include "CharacterAbilitySystemComponent.h"
 
+UCharacterAbilitySystemComponent::UCharacterAbilitySystemComponent()
+{
+}
+
 TArray<UCharacterGameplayAbility*> UCharacterAbilitySystemComponent::GetActiveAbilitiesWithTags(const TArray<FGameplayTagContainer>& Tags) const
 {
 	TArray<UCharacterGameplayAbility*> ActiveAbilities;

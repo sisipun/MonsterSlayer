@@ -44,7 +44,10 @@ public:
 		bool ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags);
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
-		void ChangeWeapon(int index);
+		void EquipWeapon(TSubclassOf<AWeapon> WeaponType);
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+		void RemoveCurrentWeapon();
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Attack")
 		void BeginPunch();

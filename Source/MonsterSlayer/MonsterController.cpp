@@ -2,5 +2,5 @@
 
 AMonsterController::AMonsterController()
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 }

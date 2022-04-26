@@ -2,6 +2,11 @@
 
 #include "BaseCharacter.h"
 
+ASlayerController::ASlayerController()
+{
+	PrimaryActorTick.bCanEverTick = true;
+}
+
 void ASlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();

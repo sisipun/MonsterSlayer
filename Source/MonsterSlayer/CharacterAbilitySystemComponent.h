@@ -13,6 +13,7 @@ class MONSTERSLAYER_API UCharacterAbilitySystemComponent : public UAbilitySystem
 	GENERATED_BODY()
 
 public:
+	UCharacterAbilitySystemComponent();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	TArray<UCharacterGameplayAbility*> GetActiveAbilitiesWithTags(const TArray<FGameplayTagContainer>& Tags) const;

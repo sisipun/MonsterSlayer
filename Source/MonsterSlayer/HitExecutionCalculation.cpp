@@ -37,7 +37,7 @@ void UHitExecutionCalculation::Execute_Implementation(const FGameplayEffectCusto
 	if (Params.GetSourceAbilitySystemComponent())
 	{
 		ABaseCharacter* BaseCharacter = Cast<ABaseCharacter>(Params.GetSourceAbilitySystemComponent()->AvatarActor);
-		if (BaseCharacter->CurrentWeapon)
+		if (IsValid(BaseCharacter->CurrentWeapon))
 		{
 			AttackPowerMagnitude += BaseCharacter->CurrentWeapon->Power;
 		}

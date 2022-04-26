@@ -13,6 +13,8 @@ public:
 	virtual void SetupInputComponent() override;
 
 private:
+	ASlayerController();
+
 	void MoveForward(float Scale);
 
 	void MoveRight(float Scale);

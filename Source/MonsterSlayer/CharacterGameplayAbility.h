@@ -9,4 +9,7 @@ class MONSTERSLAYER_API UCharacterGameplayAbility : public UGameplayAbility
 {
 	GENERATED_BODY()
 
+public:
+	UCharacterGameplayAbility();
+
 };

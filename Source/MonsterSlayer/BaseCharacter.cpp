@@ -57,7 +57,7 @@ void ABaseCharacter::BeginPlay()
 
 	if (Weapons.Num() > 0)
 	{
-		ChangeWeapon(0);
+		EquipWeapon(Weapons[0]);
 	}
 }
 
@@ -111,17 +111,14 @@ bool ABaseCharacter::ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags
 	return false;
 }
 
-void ABaseCharacter::ChangeWeapon(int index)
+void ABaseCharacter::EquipWeapon(TSubclassOf<AWeapon> WeaponType)
 {
-	if (CurrentWeapon)
-	{
-		CurrentWeapon->Destroy();
-	}
+	RemoveCurrentWeapon();
 
 	FTransform SocketTransform = GetMesh()->GetSocketTransform(ABaseCharacter::WEAPON_SOCKET_NAME);
 	FActorSpawnParameters SpawnParams = FActorSpawnParameters();
 	SpawnParams.Instigator = this;
-	AActor* Weapon = GetWorld()->SpawnActor(Weapons[index], &SocketTransform, SpawnParams);
+	AActor* Weapon = GetWorld()->SpawnActor(WeaponType, &SocketTransform, SpawnParams);
 	CurrentWeapon = Cast<AWeapon>(Weapon);
 	CurrentWeapon->AttachToComponent(
 		GetMesh(),
@@ -135,12 +132,16 @@ void ABaseCharacter::ChangeWeapon(int index)
 	);
 }
 
-void ABaseCharacter::Destroyed()
+void ABaseCharacter::RemoveCurrentWeapon()
 {
-	Super::Destroyed();
-
-	if (CurrentWeapon)
+	if (IsValid(CurrentWeapon))
 	{
 		CurrentWeapon->Destroy();
 	}
+}
+
+void ABaseCharacter::Destroyed()
+{
+	RemoveCurrentWeapon();
+	Super::Destroyed();
 }
