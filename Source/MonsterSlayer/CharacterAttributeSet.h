@@ -14,7 +14,7 @@
  GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
 UCLASS()
-class MONSTERSLAYER_API UCharacterAttributeSet : public UAttributeSet
+class MONSTERSLAYER_API UCharacterAttributeSet final : public UAttributeSet
 {
 	GENERATED_BODY()
 

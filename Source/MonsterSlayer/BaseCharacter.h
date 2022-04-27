@@ -62,7 +62,7 @@ public:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Ability")
 		UCharacterAbilitySystemComponent* AbilitySystemComponent;
 
-	UPROPERTY()
+	UPROPERTY(VisibleDefaultsOnly)
 		UCharacterAttributeSet* Attributes;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")

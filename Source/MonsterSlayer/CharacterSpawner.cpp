@@ -5,7 +5,7 @@ ACharacterSpawner::ACharacterSpawner()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	SpawnArea = CreateDefaultSubobject<UBoxComponent>(TEXT("Spawn Area"));
+	
 }
 
 void ACharacterSpawner::BeginPlay()

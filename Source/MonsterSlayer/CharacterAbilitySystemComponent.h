@@ -8,7 +8,7 @@
 #include "CharacterAbilitySystemComponent.generated.h"
 
 UCLASS()
-class MONSTERSLAYER_API UCharacterAbilitySystemComponent : public UAbilitySystemComponent
+class MONSTERSLAYER_API UCharacterAbilitySystemComponent final : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
 
