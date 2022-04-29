@@ -26,9 +26,6 @@ public:
 		bool IsMovementBlock() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
-		bool IsAttacking() const;
-
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
 		float GetMaxHealth() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
@@ -76,9 +73,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")
 		TArray<FGameplayTagContainer> MovementBlockTags;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")
-		TArray<FGameplayTagContainer> AttackTags;
 
 	UPROPERTY(BlueprintReadWrite, Category = "State")
 		bool bAttackComboActivated;

@@ -101,11 +101,6 @@ bool ABaseCharacter::IsMovementBlock() const
 	return IsDead() || AbilitySystemComponent->GetActiveAbilitiesWithTags(MovementBlockTags).Num() > 0;
 }
 
-bool ABaseCharacter::IsAttacking() const
-{
-	return AbilitySystemComponent->GetActiveAbilitiesWithTags(AttackTags).Num() > 0;
-}
-
 bool ABaseCharacter::ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags)
 {
 	if (!IsDead()) 
