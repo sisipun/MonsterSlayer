@@ -16,4 +16,7 @@ class MONSTERSLAYER_API AMonster : public ABaseCharacter
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI")
 		UBehaviorTree* BehaviorTree;
+
+public:
+	AMonster();
 };

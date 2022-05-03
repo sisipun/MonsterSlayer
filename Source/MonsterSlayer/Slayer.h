@@ -11,4 +11,6 @@ class MONSTERSLAYER_API ASlayer : public ABaseCharacter
 {
 	GENERATED_BODY()
 	
+public:
+	ASlayer();
 };

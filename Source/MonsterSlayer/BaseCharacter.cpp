@@ -6,7 +6,11 @@
 
 FName ABaseCharacter::WEAPON_SOCKET_NAME = TEXT("weapon");
 
-ABaseCharacter::ABaseCharacter()
+ABaseCharacter::ABaseCharacter() : ABaseCharacter(-1)
+{
+}
+
+ABaseCharacter::ABaseCharacter(FGenericTeamId TeamId) : TeamId(TeamId)
 {
 	PrimaryActorTick.bCanEverTick = false;
 
@@ -104,6 +108,11 @@ bool ABaseCharacter::IsMovementBlock() const
 bool ABaseCharacter::IsAttacking() const
 {
 	return AbilitySystemComponent->GetActiveAbilitiesWithTags(AttackTags).Num() > 0;
+}
+
+FGenericTeamId ABaseCharacter::GetGenericTeamId() const
+{
+	return TeamId;
 }
 
 bool ABaseCharacter::ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags)

@@ -5,6 +5,7 @@
 #include "AbilitySystemInterface.h"
 #include "Animation/AnimMontage.h"
 #include "GameFramework/Character.h"
+#include "GenericTeamAgentInterface.h"
 
 #include "Weapon.h"
 #include "CharacterAbilitySystemComponent.h"
@@ -14,7 +15,7 @@
 #include "BaseCharacter.generated.h"
 
 UCLASS(Abstract)
-class MONSTERSLAYER_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface
+class MONSTERSLAYER_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 
@@ -24,6 +25,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
 		bool IsMovementBlock() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
+		bool IsAttacking() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
 		float GetMaxHealth() const;
@@ -74,11 +78,16 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")
 		TArray<FGameplayTagContainer> MovementBlockTags;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")
+		TArray<FGameplayTagContainer> AttackTags;
+
 	UPROPERTY(BlueprintReadWrite, Category = "State")
 		bool bAttackComboActivated;
 
 public:
 	ABaseCharacter();
+
+	ABaseCharacter(FGenericTeamId TeamId);
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
@@ -88,8 +97,13 @@ public:
 
 	virtual void Destroyed() override;
 
+	virtual FGenericTeamId GetGenericTeamId() const override;
+
 private:
 	void InitializeAbilities();
+
+protected:
+	FGenericTeamId TeamId;
 
 private:
 	static FName WEAPON_SOCKET_NAME;

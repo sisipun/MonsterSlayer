@@ -5,6 +5,7 @@
 #include "AbilitySystemInterface.h"
 #include "Animation/AnimMontage.h"
 #include "GameFramework/Character.h"
+#include "GenericTeamAgentInterface.h"
 
 #include "Weapon.h"
 #include "CharacterAbilitySystemComponent.h"
@@ -14,7 +15,7 @@
 #include "BaseCharacter.generated.h"
 
 UCLASS(Abstract)
-class MONSTERSLAYER_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface
+class MONSTERSLAYER_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 
@@ -42,6 +43,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
 		float GetAttackPower() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
+		virtual FGenericTeamId GetGenericTeamId() const override;
 
 	UFUNCTION(BlueprintCallable, Category = "Abilitiy")
 		bool ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags);
@@ -86,6 +90,8 @@ public:
 public:
 	ABaseCharacter();
 
+	ABaseCharacter(FGenericTeamId TeamId);
+
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 	virtual void PossessedBy(AController* OwnerController) override;
@@ -96,6 +102,9 @@ public:
 
 private:
 	void InitializeAbilities();
+
+protected:
+	FGenericTeamId TeamId;
 
 private:
 	static FName WEAPON_SOCKET_NAME;

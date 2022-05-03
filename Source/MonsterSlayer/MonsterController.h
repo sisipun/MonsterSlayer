@@ -14,4 +14,6 @@ class MONSTERSLAYER_API AMonsterController : public AAIController
 
 public:
 	AMonsterController();
+
+	virtual void OnPossess(APawn* PossessedPawn) override;
 };

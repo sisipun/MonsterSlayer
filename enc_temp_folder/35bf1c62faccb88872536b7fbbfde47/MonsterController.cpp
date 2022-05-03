@@ -9,8 +9,6 @@ AMonsterController::AMonsterController()
 
 void AMonsterController::OnPossess(APawn* PossessedPawn)
 {
-	Super::OnPossess(PossessedPawn);
-
 	ABaseCharacter* BaseCharacter = Cast<ABaseCharacter>(PossessedPawn);
 	if (BaseCharacter)
 	{
