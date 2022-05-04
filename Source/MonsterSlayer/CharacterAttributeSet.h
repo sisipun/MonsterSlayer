@@ -34,12 +34,24 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 		FGameplayAttributeData AttackPower;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
+		FGameplayAttributeData Level;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
+		FGameplayAttributeData Experience;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
+		FGameplayAttributeData NextLevelExperience;
+
 public:
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, Health);
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, MaxHealth);
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, Mana);
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, MaxMana);
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, AttackPower);
+	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, Level);
+	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, Experience);
+	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, NextLevelExperience);
 
 public:
 	UCharacterAttributeSet();

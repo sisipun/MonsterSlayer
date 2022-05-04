@@ -1,6 +1,7 @@
-,0
-MaxHealth,200
-Health,200
-MaxMana,100
-Mana,100
-AttackPower,20
+,1,2
+MaxHealth,200,400
+Health,200,400
+MaxMana,100,200
+Mana,100,200
+AttackPower,20,40
+NextLevelExperience,100,200

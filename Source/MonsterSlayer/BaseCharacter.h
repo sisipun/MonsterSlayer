@@ -45,6 +45,15 @@ public:
 		float GetAttackPower() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
+		float GetLevel() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
+		float GetExperience() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
+		float GetNextLevelExperience() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "State")
 		virtual FGenericTeamId GetGenericTeamId() const override;
 
 	UFUNCTION(BlueprintCallable, Category = "Abilitiy")
