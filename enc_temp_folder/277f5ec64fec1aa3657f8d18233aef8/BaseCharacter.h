@@ -20,40 +20,40 @@ class MONSTERSLAYER_API ABaseCharacter : public ACharacter, public IAbilitySyste
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintPure, Category = "State")
+	UFUNCTION(BlueprintGetter, Category = "State")
 		bool IsDead() const;
 
-	UFUNCTION(BlueprintPure, Category = "State")
+	UFUNCTION(BlueprintGetter, Category = "State")
 		bool IsMovementBlock() const;
 
-	UFUNCTION(BlueprintPure, Category = "State")
+	UFUNCTION(BlueprintGetter, Category = "State")
 		bool IsAttacking() const;
 
-	UFUNCTION(BlueprintPure, Category = "State")
+	UFUNCTION(BlueprintGetter, Category = "State")
 		float GetMaxHealth() const;
 
-	UFUNCTION(BlueprintPure, Category = "State")
+	UFUNCTION(BlueprintGetter, Category = "State")
 		float GetHealth() const;
 
-	UFUNCTION(BlueprintPure, Category = "State")
+	UFUNCTION(BlueprintGetter, Category = "State")
 		float GetMaxMana() const;
 
-	UFUNCTION(BlueprintPure, Category = "State")
+	UFUNCTION(BlueprintGetter, Category = "State")
 		float GetMana() const;
 
-	UFUNCTION(BlueprintPure, Category = "State")
+	UFUNCTION(BlueprintGetter, Category = "State")
 		float GetAttackPower() const;
 
-	UFUNCTION(BlueprintPure, Category = "State")
-		int GetLevel() const;
+	UFUNCTION(BlueprintGetter, Category = "State")
+		float GetLevel() const;
 
-	UFUNCTION(BlueprintPure, Category = "State")
+	UFUNCTION(BlueprintGetter, Category = "State")
 		float GetExperience() const;
 
-	UFUNCTION(BlueprintPure, Category = "State")
+	UFUNCTION(BlueprintGetter, Category = "State")
 		float GetNextLevelExperience() const;
 
-	UFUNCTION(BlueprintPure, Category = "State")
+	UFUNCTION(BlueprintGetter, Category = "State")
 		virtual FGenericTeamId GetGenericTeamId() const override;
 
 	UFUNCTION(BlueprintCallable, Category = "State")

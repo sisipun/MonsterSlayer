@@ -1,6 +1,7 @@
 #include "HitExecutionCalculation.h"
-#include "CharacterAttributeSet.h"
+
 #include "BaseCharacter.h"
+#include "CharacterAttributeSet.h"
 
 struct HitExecutionCapture
 {
@@ -37,7 +38,7 @@ void UHitExecutionCalculation::Execute_Implementation(const FGameplayEffectCusto
 	if (Params.GetSourceAbilitySystemComponent())
 	{
 		ABaseCharacter* BaseCharacter = Cast<ABaseCharacter>(Params.GetSourceAbilitySystemComponent()->AvatarActor);
-		if (IsValid(BaseCharacter->CurrentWeapon))
+		if (BaseCharacter && IsValid(BaseCharacter->CurrentWeapon))
 		{
 			AttackPowerMagnitude += BaseCharacter->CurrentWeapon->Power;
 		}

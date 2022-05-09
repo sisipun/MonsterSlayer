@@ -103,9 +103,9 @@ float ABaseCharacter::GetAttackPower() const
 	return Attributes->GetAttackPower();
 }
 
-int ABaseCharacter::GetLevel() const
+float ABaseCharacter::GetLevel() const
 {
-	return static_cast<int>(Attributes->GetLevel());
+	return Attributes->GetLevel();
 }
 
 float ABaseCharacter::GetExperience() const
