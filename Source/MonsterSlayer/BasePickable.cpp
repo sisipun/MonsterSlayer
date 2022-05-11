@@ -5,13 +5,13 @@ ABasePickable::ABasePickable()
 	PrimaryActorTick.bCanEverTick = false;
 
 	Body = CreateDefaultSubobject<USceneComponent>(TEXT("Body"));
-	Body->AttachTo(RootComponent);
+	Body->SetupAttachment(RootComponent);
 
 	Collider = CreateDefaultSubobject<USphereComponent>(TEXT("Collider"));
 	Collider->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
-	Collider->AttachTo(Body);
+	Collider->SetupAttachment(Body);
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
-	Mesh->AttachTo(Body);
+	Mesh->SetupAttachment(Body);
 }
