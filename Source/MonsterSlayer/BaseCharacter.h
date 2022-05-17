@@ -45,7 +45,7 @@ public:
 		float GetAttackPower() const;
 
 	UFUNCTION(BlueprintPure, Category = "State")
-		int GetLevel() const;
+		int GetExperienceLevel() const;
 
 	UFUNCTION(BlueprintPure, Category = "State")
 		float GetExperience() const;

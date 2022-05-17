@@ -56,7 +56,7 @@ void ABaseCharacter::ApplyEffect(const TSubclassOf<UGameplayEffect>& Effect)
 	FGameplayEffectContextHandle ContextHandle = AbilitySystemComponent->MakeEffectContext();
 	ContextHandle.AddSourceObject(this);
 
-	FGameplayEffectSpecHandle SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(Effect, GetLevel(), ContextHandle);
+	FGameplayEffectSpecHandle SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(Effect, GetExperienceLevel(), ContextHandle);
 	if (SpecHandle.IsValid())
 	{
 		FActiveGameplayEffectHandle GameplayEffectHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
@@ -103,7 +103,7 @@ float ABaseCharacter::GetAttackPower() const
 	return Attributes->GetAttackPower();
 }
 
-int ABaseCharacter::GetLevel() const
+int ABaseCharacter::GetExperienceLevel() const
 {
 	return static_cast<int>(Attributes->GetLevel());
 }

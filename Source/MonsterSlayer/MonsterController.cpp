@@ -36,19 +36,13 @@ void AMonsterController::OnPossess(APawn* PossessedPawn)
 	AMonster* Monster = Cast<AMonster>(PossessedPawn);
 	if (Monster)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Monst"));
 		SetGenericTeamId(Monster->GetGenericTeamId());
-		bool run = RunBehaviorTree(Monster->BehaviorTree);
-		if (run)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Run"));
-		}
+		RunBehaviorTree(Monster->BehaviorTree);
 	}
 }
 
 void AMonsterController::OnTargetPerceptionUpdate(AActor* Actor, FAIStimulus Stimulus)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Targ"));
 	ABaseCharacter* BaseCharacter = Cast<ABaseCharacter>(Actor);
 	if (!BaseCharacter)
 	{

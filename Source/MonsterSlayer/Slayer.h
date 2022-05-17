@@ -13,4 +13,7 @@ class MONSTERSLAYER_API ASlayer : public ABaseCharacter
 	
 public:
 	ASlayer();
+
+private:
+	int CurrentWeaponIndex = 0;
 };
